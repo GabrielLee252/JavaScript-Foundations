@@ -3,7 +3,10 @@
 // 🏡 Task 1: Variables
 /* Create variables for principal, interest rate, and years. Assign them the values 200000, 0.05, and 30 respectively. Create another value called name and give it the value of your own name.
 */
-
+const principal = 200000
+const interestRate = 0.05
+const years = 30
+const name = 'Gabe Lee'
 
 
 
@@ -14,8 +17,8 @@
 (1) Create a variable called `monthlyInterestRate` and give it the value of interest rate divided by 12. 
 (2) Create another variable called `periods` and give it the value of years*12.
 */
-
-
+const monthlyInterestRate = interestRate / 12;
+const periods = years * 12;
 
 
 // 🏡 Task 2: Harder Math
@@ -35,6 +38,10 @@ Hint #2: you'll need to use the `math` object for parts of this calculation!
 When your math is correct, monthlyRate will equal 1073.64
 */
 
+const n1 = (1 + monthlyInterestRate)^N
+const numerator = principal * monthlyInterestRate * Math.pow((1+monthlyInterestRate), periods)
+const denominator = Math.pow((1+monthlyInterestRate ), periods) -1
+const monthlyRate = (numerator / denominator).toFixed(2)
 
 
 
@@ -44,9 +51,13 @@ When your math is correct, monthlyRate will equal 1073.64
 If your name is `Oscar` mortgageCalculator() should return "Oscar, your monthly rate is 1073.64"
 */
 
+const displayMortgage = (name) => {
+    //  if(name === 'Oscar'){
+      return '${Oscar}, your monthly rate is ${monthlyRate}'
+    //  }
+ }
 
-
-
+ console.log(displayMortgage('Oscar'))
 
 // 🏡 Task 4: Arguments and Parameters
 /* Substitute the variables in your functions for parameters such that you can substitute `P`, `I`, and `N` when you call the function.
@@ -55,7 +66,16 @@ For example,
 mortgageCalculator(200000, 0.05, 30); <-- should return 1,073.64
 */
 
+const monthlyCalculator = (total, interest, term) => {
+    const monthlyInterestRate = interest / 12;
+    const periods = term * 12;
+    const numerator = total * monthlyInterestRate * Math.pow((1+monthlyInterestRate), periods)
+    const denominator = Math.pow((1+monthlyInterestRate ), periods) -1
+    return (numerator / denominator).toFixed(2)
+}
+    
 
+console.log(monthlyCalculator(400000, 0.1, 15))
 
 
 
@@ -67,6 +87,17 @@ Then, add control flow within your function such that IF creditScore is above 74
 Hint: To drop an interest rate by 5% you can take monthlyRate and multiply it by 0.95. Similarly, to increase an interest rate by 5% you'd do monthlyRate * 1.05. 
 */
 
+const scoreCalculator = (total, interest, term, score) => {
+    if (score > 740){
+    interest= interest - .005
+}else if (score < 660){
+interest = interest + .005
+}
+return monthlyCalculator (total, interest, term)
+}
+console.log(scoreCalculator(300000, .01, 30, 800));
+console.log(scoreCalculator(300000, .01, 30, 700));
+console.log(scoreCalculator(300000, .01, 30, 600));
 
 
 
@@ -86,6 +117,15 @@ For example, variableInterestRate(200000, 0.04, 30) should console.log:
 "{Name}, with an interest rate of 0.06, your monthly rate is $1199"
 */
 
+const interestRateList = (total, interest, term) => {
+    interest = (interest - .02)
+    for(let i=0; i < 10; i++){
+        payment = monthlyCalculator(total, interest, term)
+        console.log(`${name}, with an interest rate of ${interest.toFixed(3)}, your monthly rate is ${payment}`)
+        interest = interest + .005
+    }
+}
+interestRateList(200000, 0.04, 30)
 
 
 
